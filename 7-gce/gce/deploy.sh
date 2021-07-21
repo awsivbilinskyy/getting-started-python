@@ -15,7 +15,7 @@
 
 set -ex
 
-ZONE=us-central1-f
+ZONE=us-central1-a
 
 GROUP=frontend-group
 TEMPLATE=$GROUP-tmpl
@@ -27,7 +27,7 @@ SCOPES="userinfo-email,cloud-platform"
 TAGS=http-server
 
 MIN_INSTANCES=1
-MAX_INSTANCES=10
+MAX_INSTANCES=3
 TARGET_UTILIZATION=0.6
 
 SERVICE=my-app-service
