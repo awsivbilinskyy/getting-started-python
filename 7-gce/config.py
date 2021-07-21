@@ -43,7 +43,7 @@ CLOUDSQL_DATABASE = 'bookshelf'
 # Set this value to the Cloud SQL connection name, e.g.
 #   "project:region:cloudsql-instance".
 # You must also update the value in app.yaml.
-CLOUDSQL_CONNECTION_NAME = 'psyched-bee-320416:us-central1:bookshelf''
+CLOUDSQL_CONNECTION_NAME = 'psyched-bee-320416:us-central1:bookshelf'
 
 # The CloudSQL proxy is used locally to connect to the cloudsql instance.
 # To start the proxy, use:
