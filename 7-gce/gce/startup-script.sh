@@ -30,13 +30,20 @@ service google-fluentd restart &
 apt-get update
 apt-get install -yq \
     git build-essential supervisor python python-dev python-pip libffi-dev \
-    libssl-dev
+    libssl-dev mysql-client
 
 # Create a pythonapp user. The application will run as this user.
 useradd -m -d /home/pythonapp pythonapp
 
 # pip from apt is out of date, so make it update itself and install virtualenv.
 pip install --upgrade pip virtualenv
+
+#ILLIA START get cloud_sql_proxy
+wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
+chmod +x cloud_sql_proxy
+cp cloud_sql_proxy /usr/local/bin/cloud_sql_proxy
+cloud_sql_proxy -instances='psyched-bee-320416:us-central1:bookshelf'==tcp:3306&
+#ILLIA END
 
 # Get the source code from the Google Cloud Repository
 # git requires $HOME and it's not set during the startup script.
