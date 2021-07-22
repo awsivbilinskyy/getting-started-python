@@ -38,12 +38,34 @@ useradd -m -d /home/pythonapp pythonapp
 # pip from apt is out of date, so make it update itself and install virtualenv.
 pip install --upgrade pip virtualenv
 
-#ILLIA START get cloud_sql_proxy
+#ILLIA START------------------------ get cloud_sql_proxy
 wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
 chmod +x cloud_sql_proxy
 cp cloud_sql_proxy /usr/local/bin/cloud_sql_proxy
-cloud_sql_proxy -instances=psyched-bee-320416:us-central1:bookshelf=tcp:3306&
-#ILLIA END
+
+#create cloudsql service
+cat >/etc/systemd/system/cloud-sql-proxy.service << EOF
+[Unit]
+Description=Connecting MySQL Client from Compute Engine using the Cloud SQL Proxy
+Requires=networking.service
+After=networking.service
+ 
+[Service]
+WorkingDirectory=/usr/local/bin
+ExecStart=/usr/local/bin/cloud_sql_proxy -instances=psyched-bee-320416:us-central1:bookshelf=tcp:3306
+Restart=always
+StandardOutput=journal
+User=root
+ 
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl enable cloud-sql-proxy.service
+systemctl start cloud-sql-proxy.service
+
+##cloud_sql_proxy -instances=psyched-bee-320416:us-central1:bookshelf=tcp:3306&
+#ILLIA END -----------------------------------------------------
 
 # Get the source code from the Google Cloud Repository
 # git requires $HOME and it's not set during the startup script.
