@@ -76,9 +76,12 @@ git clone https://github.com/awsivbilinskyy/getting-started-python.git -b steps 
 # Install app dependencies
 virtualenv -p python3 /opt/app/7-gce/env
 source /opt/app/7-gce/env/bin/activate
+# ILLIA - create db infra
+/opt/app/7-gce/env/bin/python /opt/app/7-gce/bookshelf/model_cloudsql.py
+# ILLIA - end
 /opt/app/7-gce/env/bin/pip install -r /opt/app/7-gce/requirements.txt
 #test
-/opt/app/7-gce/env/bin/python /opt/app/7-gce/bookshelf/model_cloudsql.py
+#/opt/app/7-gce/env/bin/python /opt/app/7-gce/bookshelf/model_cloudsql.py
 
 # Make sure the pythonapp user owns the application code
 chown -R pythonapp:pythonapp /opt/app
